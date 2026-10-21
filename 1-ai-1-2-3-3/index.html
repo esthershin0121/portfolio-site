@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OTHER SIDE.</title>
+  <style>
+    :root {
+      --section-gap: 80px;
+      --background: #0a0a0a;
+      --ink: #f2f2f2;
+      --accent: #dc3038;
+      --accent-hover: #bf222a;
+      --image-placeholder: #292929;
+      --text-placeholder: #444444;
+      --border: #333333;
+      color-scheme: dark;
+      font-family: Arial, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background: var(--background);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1280px, calc(100% - 96px)); margin-inline: auto; }
+    main.container { display: flex; flex-direction: column; gap: var(--section-gap); }
+    .navigation { display: flex; align-items: center; min-height: 96px; gap: 24px; border-bottom: 1px solid var(--border); }
+    .brand, .nav-action { flex: 1; }
+    .brand { font-size: 22px; font-weight: 800; letter-spacing: -.06em; white-space: nowrap; }
+    .nav-links { display: flex; justify-content: center; gap: 36px; }
+    .nav-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 12px 4px; font-size: 15px; }
+    .nav-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
+    .nav-action { display: flex; justify-content: flex-end; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 13px 24px; border: 1px solid var(--accent); border-radius: 999px; background: var(--accent); color: #ffffff; font-size: 14px; line-height: 1.4; text-align: center; }
+    a.button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .button:disabled { background: transparent; color: #aaaaaa; border-color: #555555; cursor: not-allowed; opacity: 1; }
+    .hero { height: 80vh; height: 80svh; min-height: 480px; display: flex; flex-direction: column; padding: 40px 0 0; }
+    h1 { margin: 0; font-size: clamp(56px, 10.5vw, 144px); line-height: .98; letter-spacing: -.075em; font-weight: 800; }
+    .intro { margin: 20px 0 32px; font-size: clamp(18px, 2vw, 25px); line-height: 1.5; letter-spacing: -.035em; }
+    .hero-image { position: relative; flex: 1; min-height: 180px; overflow: hidden; background: var(--image-placeholder); border-radius: 8px; }
+    .hero-image img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    section[id] { scroll-margin-top: 32px; }
+    .about, .projects, .gallery { padding: 0; }
+    .statement { margin: 0 0 44px; font-size: clamp(30px, 4.8vw, 66px); line-height: 1.06; letter-spacing: -.055em; font-weight: 800; }
+    .explanation { max-width: 800px; word-break: keep-all; overflow-wrap: anywhere; }
+    .copy-bold { margin: 0 0 24px; font-size: 20px; line-height: 1.5; font-weight: 700; }
+    .copy-medium { margin: 0; font-size: 16px; line-height: 1.8; font-weight: 500; }
+    .section-title { margin: 0 0 32px; font-size: clamp(28px, 3vw, 40px); line-height: 1.25; letter-spacing: -.04em; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .project { min-width: 0; }
+    .project-link { display: block; border-radius: 8px; }
+    .project-link[href]:hover .thumbnail { background: #383838; }
+    .project-link[href]:hover .project-title { color: var(--accent); text-decoration: underline; text-underline-offset: 5px; }
+    .projects .grid { row-gap: 56px; }
+    .thumbnail, .gallery-image { position: relative; overflow: hidden; background: var(--image-placeholder); border-radius: 8px; }
+    .thumbnail { aspect-ratio: 3 / 2; }
+    .thumbnail img, .gallery-image img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .project-title { margin: 20px 0 12px; font-size: clamp(20px, 2vw, 24px); line-height: 1.25; font-weight: 700; letter-spacing: -.035em; }
+    .project-description { margin: 0; min-height: 18px; }
+    .image-caption, .project-description { color: #aaaaaa; font-size: 14px; font-weight: 400; line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere; }
+    .image-caption { margin: 12px 0 0; }
+    .hero-caption { flex-shrink: 0; }
+    .gallery-item { margin: 0; min-width: 0; }
+    .gallery-image { aspect-ratio: 3 / 5; }
+    .cta { display: flex; flex-direction: column; min-height: 480px; }
+    .contact-title { display: flex; flex: 1 0 240px; align-items: flex-end; justify-content: center; margin: 0; padding-bottom: 12px; font-size: clamp(64px, 11vw, 160px); line-height: 1; font-weight: 800; letter-spacing: -.065em; }
+    .contact-actions { display: flex; flex: 1 0 240px; align-items: flex-start; align-content: flex-start; justify-content: center; flex-wrap: wrap; gap: 16px; padding: 12px 0 40px; }
+    .footer { width: 100%; margin-top: var(--section-gap); padding: 0 0 20px; }
+    .footer-brand { margin: 0; font-family: Arial, sans-serif; font-size: 17.5vw; line-height: .9; font-weight: 900; letter-spacing: -.075em; text-align: center; white-space: nowrap; }
+    @media (max-width: 768px) {
+      :root { --section-gap: 48px; }
+      .container { width: calc(100% - 40px); }
+      .navigation { flex-wrap: nowrap; min-height: 80px; gap: 16px; padding: 18px 0; }
+      .brand { font-size: 20px; }
+      .nav-action { flex: 0 0 auto; }
+      .nav-action .button { min-height: 44px; padding: 10px 18px; }
+      .nav-links { display: none; }
+      .hero { min-height: 420px; padding: 32px 0 0; }
+      h1 { font-size: clamp(44px, 11vw, 82px); }
+      .intro { margin: 18px 0 24px; }
+      .statement { margin-bottom: 32px; }
+      .grid { grid-template-columns: 1fr; gap: 40px; }
+      .gallery .grid { gap: 20px; }
+      .projects .grid { row-gap: 40px; }
+      .cta { min-height: 440px; }
+      .contact-title { flex-basis: 220px; }
+      .contact-actions { flex-basis: 220px; flex-direction: column; align-items: stretch; justify-content: flex-start; flex-wrap: nowrap; padding: 12px 0 24px; gap: 12px; }
+      .footer { padding-bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 가정: 블랙 배경(#0a0a0a), 밝은 그레이 텍스트(#f2f2f2), 레드 강조색(#dc3038)을 사용한다. 미제공 설명과 이미지 여백은 그레이로 표현한다. -->
+  <!-- 가정: 제공받은 이미지 설명은 alt 속성과 이미지 아래 보이는 캡션에 동일하게 적용한다. -->
+  <!-- 가정: 회색 상자 제약보다 첨부 이미지 배치 요청을 우선한다. 첨부 순서대로 히어로 1개·프로젝트 6개·갤러리 6개에 사용하며, 원본 PNG는 images 폴더에 저장하고 상대 경로로 불러온다. -->
+  <!-- 가정: 모든 이미지는 원본 비율을 유지하며 박스를 빈틈없이 채운다. 박스와 비율이 다르면 중앙 기준으로 가장자리를 잘라내고, 박스 밖으로 넘치는 부분은 숨긴다. 갤러리 박스는 3:5 비율을 사용한다. -->
+  <!-- 가정: 본문 섹션과 최하단 브랜드 영역 사이의 간격은 데스크톱 80px, 768px 이하 48px로 통일한다. -->
+  <!-- 가정: branding은 프로젝트, visual은 갤러리, about은 소개, Contact는 CTA로 이동한다. -->
+  <header class="container">
+    <nav class="navigation">
+      <a class="brand" href="#home">OTHER SIDE.</a>
+      <div class="nav-links">
+        <a href="#projects">branding</a>
+        <a href="#visual">visual</a>
+        <a href="#about">about</a>
+      </div>
+      <div class="nav-action"><a class="button" href="#contact">Contact</a></div>
+    </nav>
+  </header>
+  <main class="container">
+    <!-- 가정: 히어로는 화면 높이의 80%이며, 작은 화면에서는 콘텐츠를 위해 최소 높이를 확보한다. -->
+    <section id="home" class="hero" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">OTHER SIDE.</h1>
+      <p class="intro">Familiar things, seen differently.</p>
+      <div class="hero-image"><img data-source="H-2.png" src="images/H-2.png" alt="촉촉한 피부의 여성 얼굴 위로 투명한 자몽 단면 두 개가 겹쳐진 이미지" width="1456" height="816" loading="eager" fetchpriority="high" decoding="async"></div>
+      <p class="image-caption hero-caption">촉촉한 피부의 여성 얼굴 위로 투명한 자몽 단면 두 개가 겹쳐진 이미지</p>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <h2 id="about-heading" class="statement">LOOK CLOSER.<br>THERE’S ANOTHER SIDE.</h2>
+      <!-- 가정: 데스크톱에서는 제공한 세 문장 줄바꿈을 유지하고, 모바일에서는 너비에 맞춰 추가 줄바꿈한다. -->
+      <div class="explanation">
+        <p class="copy-bold">익숙한 것에서 발견한 낯선 아름다움.</p>
+        <p class="copy-medium">매일 반복하는 스킨케어도 다른 시선으로 바라보면 새로운 경험이 될 수 있습니다.<br>OTHERSIDE.는 피부에 닿는 제형과 감각을 조금 낯선 방식으로 풀어내고,<br>익숙한 일상 속에서 미처 발견하지 못했던 아름다움을 전하고자 합니다.</p>
+      </div>
+    </section>
+
+    <section id="projects" class="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading" class="section-title">Design Project Process</h2>
+      <!-- 가정: 카드 전체를 링크 영역으로 사용한다. 연결 주소 미제공으로 href는 생략했다. 각 project-link에 실제 href를 추가하고 aria-disabled를 제거하면 마우스·터치·키보드로 이동할 수 있다. 이미지 아래에는 제공받은 설명을 표시한다. -->
+      <div class="grid">
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_01_Overview.png" src="images/OTHERSIDE_01_Overview.png" alt="자몽 단면, 인물 클로즈업, 물의 움직임과 브랜드 컬러를 모은 이미지 보드" width="469" height="314" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Overview</h3>
+            <p class="project-description">자몽 단면, 인물 클로즈업, 물의 움직임과 브랜드 컬러를 모은 이미지 보드</p>
+          </a>
+        </article>
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_02_Analysis.png" src="images/OTHERSIDE_02_Analysis.png" alt="붉은 자몽의 과육과 투명한 액체의 질감을 확대해 보여주는 이미지" width="454" height="314" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Analysis</h3>
+            <p class="project-description">붉은 자몽의 과육과 투명한 액체의 질감을 확대해 보여주는 이미지</p>
+          </a>
+        </article>
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_03_Application.png" src="images/OTHERSIDE_03_Application.png" alt="붉은 세럼 방울과 투명한 유리 오브제가 겹쳐진 이미지" width="469" height="314" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Application</h3>
+            <p class="project-description">붉은 세럼 방울과 투명한 유리 오브제가 겹쳐진 이미지</p>
+          </a>
+        </article>
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_04_Concept.png" src="images/OTHERSIDE_04_Concept.png" alt="투명한 유리 구슬 안에서 자몽 단면이 굴절되어 보이는 이미지" width="469" height="332" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Concept</h3>
+            <p class="project-description">투명한 유리 구슬 안에서 자몽 단면이 굴절되어 보이는 이미지</p>
+          </a>
+        </article>
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_05_Strategy.png" src="images/OTHERSIDE_05_Strategy.png" alt="OTHERSIDE. 로고와 레드·블랙 컬러, 타이포그래피 및 이미지 원칙을 정리한 보드" width="454" height="332" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Strategy</h3>
+            <p class="project-description">OTHERSIDE. 로고와 레드·블랙 컬러, 타이포그래피 및 이미지 원칙을 정리한 보드</p>
+          </a>
+        </article>
+        <article class="project">
+          <a class="project-link" aria-disabled="true">
+            <div class="thumbnail"><img data-source="OTHERSIDE_06_Design.png" src="images/OTHERSIDE_06_Design.png" alt="붉은 앰플병과 패키지, 자몽 단면을 함께 배치한 제품 이미지" width="469" height="332" loading="lazy" decoding="async"></div>
+            <h3 class="project-title">Design</h3>
+            <p class="project-description">붉은 앰플병과 패키지, 자몽 단면을 함께 배치한 제품 이미지</p>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section id="visual" class="gallery" aria-labelledby="visual-heading">
+      <h2 id="visual-heading" class="section-title">visual</h2>
+      <div class="grid">
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_01_05_Packaging.png" src="images/OTHERSIDE_Board_01_05_Packaging.png" alt="흰색 패키지와 붉은 앰플병을 밝은 배경에 배치한 제품 화보" width="243" height="414" loading="lazy" decoding="async"></div><figcaption class="image-caption">흰색 패키지와 붉은 앰플병을 밝은 배경에 배치한 제품 화보</figcaption></figure>
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_01_12_Editorial.png" src="images/OTHERSIDE_Board_01_12_Editorial.png" alt="OTHERSIDE. 로고와 붉은 자몽 이미지를 활용한 인쇄물 디자인" width="246" height="430" loading="lazy" decoding="async"></div><figcaption class="image-caption">OTHERSIDE. 로고와 붉은 자몽 이미지를 활용한 인쇄물 디자인</figcaption></figure>
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_02_03_Poster.png" src="images/OTHERSIDE_Board_02_03_Poster.png" alt="검은색 OTHERSIDE. 타이포그래피와 붉은 반투명 오브제가 배치된 포스터" width="249" height="430" loading="lazy" decoding="async"></div><figcaption class="image-caption">검은색 OTHERSIDE. 타이포그래피와 붉은 반투명 오브제가 배치된 포스터</figcaption></figure>
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_02_08_Product.png" src="images/OTHERSIDE_Board_02_08_Product.png" alt="스포이드 끝에서 붉은 세럼 한 방울이 떨어지는 장면" width="248" height="425" loading="lazy" decoding="async"></div><figcaption class="image-caption">스포이드 끝에서 붉은 세럼 한 방울이 떨어지는 장면</figcaption></figure>
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_02_10_Texture.png" src="images/OTHERSIDE_Board_02_10_Texture.png" alt="자몽 과육의 붉은 질감과 표면의 물방울을 확대해 보여주는 이미지" width="248" height="425" loading="lazy" decoding="async"></div><figcaption class="image-caption">자몽 과육의 붉은 질감과 표면의 물방울을 확대해 보여주는 이미지</figcaption></figure>
+        <figure class="gallery-item"><div class="gallery-image"><img data-source="OTHERSIDE_Board_02_12_Editorial.png" src="images/OTHERSIDE_Board_02_12_Editorial.png" alt="자몽 이미지와 브랜드 문구가 배치된 펼쳐진 에디토리얼 지면" width="254" height="425" loading="lazy" decoding="async"></div><figcaption class="image-caption">자몽 이미지와 브랜드 문구가 배치된 펼쳐진 에디토리얼 지면</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 가정: 이메일 주소, 소셜 URL, 이력서 파일 미제공으로 CTA는 연결 전까지 비활성화한다. -->
+    <!-- 가정: Let's Talk!는 CTA 영역 높이의 50%를 차지한다. 제목을 해당 영역 하단에, 버튼을 다음 영역 상단에 배치해 둘 사이 간격을 24px로 좁힌다. -->
+    <section id="contact" class="cta" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="contact-title">Let's Talk!</h2>
+      <div class="contact-actions">
+        <button class="button" type="button" disabled>이메일 보내기</button>
+        <button class="button" type="button" disabled>소셜 링크</button>
+        <button class="button" type="button" disabled>이력서 다운로드</button>
+      </div>
+    </section>
+  </main>
+  <!-- 가정: 최하단 문구는 화면 너비를 거의 채우는 한 줄 텍스트로 배치한다. -->
+  <footer class="footer"><p class="footer-brand">OTHER SIDE.</p></footer>
+</body>
+</html>
